@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ── CONFIG ────────────────────────────────────────────────────────────────────
+// -- CONFIG --------------------------------------------------------------------
 // Replace this with your Railway backend URL after deploying
 const API_BASE = process.env.REACT_APP_API_URL || "https://your-railway-app.up.railway.app";
 
@@ -13,7 +13,7 @@ const useApi = (secret) => {
   return { get, post };
 };
 
-// ── ICONS ─────────────────────────────────────────────────────────────────────
+// -- ICONS ---------------------------------------------------------------------
 const Icon = ({ d, size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d={d} />
@@ -34,7 +34,7 @@ const icons = {
   loader: "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83",
 };
 
-// ── LOGIN SCREEN ──────────────────────────────────────────────────────────────
+// -- LOGIN SCREEN --------------------------------------------------------------
 function LoginScreen({ onLogin }) {
   const [secret, setSecret] = useState("");
   const [error, setError] = useState("");
@@ -69,7 +69,7 @@ function LoginScreen({ onLogin }) {
           borderRadius: 20, padding: "48px 40px", width: "100%", maxWidth: 400,
           textAlign: "center"
         }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>🤖</div>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>Robot </div>
         <h1 style={{ color: "#fff", fontSize: 26, fontWeight: 800, margin: "0 0 6px" }}>
           Telegram AI Agent
         </h1>
@@ -95,27 +95,27 @@ function LoginScreen({ onLogin }) {
           border: "none", borderRadius: 10, color: "#fff", fontSize: 16,
           fontWeight: 700, cursor: "pointer", fontFamily: "'Syne', sans-serif"
         }}>
-          Enter Dashboard →
+          Enter Dashboard ->
         </button>
       </motion.div>
     </div>
   );
 }
 
-// ── STAT CARD ─────────────────────────────────────────────────────────────────
+// -- STAT CARD -----------------------------------------------------------------
 function StatCard({ label, value, accent }) {
   return (
     <div style={{
       background: "#12121a", border: `1px solid ${accent}33`,
       borderRadius: 14, padding: "20px 24px", flex: 1, minWidth: 130
     }}>
-      <div style={{ color: accent, fontSize: 28, fontWeight: 800 }}>{value ?? "—"}</div>
+      <div style={{ color: accent, fontSize: 28, fontWeight: 800 }}>{value ?? "-"}</div>
       <div style={{ color: "#666", fontSize: 13, marginTop: 4 }}>{label}</div>
     </div>
   );
 }
 
-// ── TOGGLE ────────────────────────────────────────────────────────────────────
+// -- TOGGLE --------------------------------------------------------------------
 function Toggle({ value, onChange }) {
   return (
     <div onClick={() => onChange(!value)} style={{
@@ -132,7 +132,7 @@ function Toggle({ value, onChange }) {
   );
 }
 
-// ── HOME TAB ──────────────────────────────────────────────────────────────────
+// -- HOME TAB ------------------------------------------------------------------
 function HomeTab({ stats }) {
   return (
     <div>
@@ -148,7 +148,7 @@ function HomeTab({ stats }) {
         background: "#12121a", border: "1px solid #1e1e2e",
         borderRadius: 14, padding: 24
       }}>
-        <h3 style={{ color: "#fff", margin: "0 0 16px", fontSize: 16 }}>⚡ Quick Commands</h3>
+        <h3 style={{ color: "#fff", margin: "0 0 16px", fontSize: 16 }}>AI  Quick Commands</h3>
         {[
           ["!groups", "List all your Telegram groups"],
           ["!sync", "Refresh your group list from Telegram"],
@@ -176,7 +176,7 @@ function HomeTab({ stats }) {
   );
 }
 
-// ── GROUPS TAB ────────────────────────────────────────────────────────────────
+// -- GROUPS TAB ----------------------------------------------------------------
 function GroupsTab({ api }) {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -239,7 +239,7 @@ function GroupsTab({ api }) {
   );
 }
 
-// ── RELAY TAB ─────────────────────────────────────────────────────────────────
+// -- RELAY TAB -----------------------------------------------------------------
 function RelayTab({ api }) {
   const [groups, setGroups] = useState([]);
   const [relays, setRelays] = useState([]);
@@ -256,7 +256,7 @@ function RelayTab({ api }) {
   const addRelay = async () => {
     if (!from || !to) return;
     await api.post("/relay", { source_id: parseInt(from), target_id: parseInt(to), keywords });
-    setMsg("✅ Relay rule saved!");
+    setMsg("OK  Relay rule saved!");
     api.get("/relay").then((d) => setRelays(Array.isArray(d) ? d : []));
   };
 
@@ -295,7 +295,7 @@ function RelayTab({ api }) {
           display: "flex", gap: 12, alignItems: "center"
         }}>
           <span style={{ color: "#6366f1", fontWeight: 600 }}>{r.name}</span>
-          <span style={{ color: "#555" }}>→</span>
+          <span style={{ color: "#555" }}>-></span>
           <span style={{ color: "#34d399" }}>{r.relay_target_id}</span>
           {r.relay_keywords && <span style={{ color: "#f59e0b", fontSize: 13 }}>Keywords: {r.relay_keywords}</span>}
         </div>
@@ -305,7 +305,7 @@ function RelayTab({ api }) {
   );
 }
 
-// ── BROADCAST TAB ─────────────────────────────────────────────────────────────
+// -- BROADCAST TAB -------------------------------------------------------------
 function BroadcastTab({ api }) {
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState("");
@@ -349,7 +349,7 @@ function BroadcastTab({ api }) {
           }} />
         <div style={{ background: "#1a1228", borderRadius: 8, padding: "12px 16px", marginBottom: 16 }}>
           <p style={{ color: "#a78bfa", fontSize: 13, margin: 0 }}>
-            ⚠️ This will DM every member of the selected group. A 3-second delay is added between each message to protect your account.
+            Warning: This will DM every member of the selected group. A 3-second delay is added between each message to protect your account.
           </p>
         </div>
         <button onClick={sendBroadcast} disabled={loading || !selectedGroup || !message.trim()}
@@ -358,7 +358,7 @@ function BroadcastTab({ api }) {
             border: "none", borderRadius: 8, color: "#fff", fontSize: 15,
             fontWeight: 700, cursor: loading ? "not-allowed" : "pointer"
           }}>
-          {loading ? "Sending..." : "📨 Send Broadcast"}
+          {loading ? "Sending..." : "Broadcast  Send Broadcast"}
         </button>
         {status && <p style={{ color: "#34d399", fontSize: 14, marginTop: 12 }}>{status}</p>}
       </div>
@@ -366,7 +366,7 @@ function BroadcastTab({ api }) {
   );
 }
 
-// ── SETTINGS / AI UPDATER TAB ─────────────────────────────────────────────────
+// -- SETTINGS / AI UPDATER TAB -------------------------------------------------
 function SettingsTab({ api }) {
   const [request, setRequest] = useState("");
   const [loading, setLoading] = useState(false);
@@ -396,7 +396,7 @@ function SettingsTab({ api }) {
       </p>
 
       <div style={{ background: "#12121a", border: "1px solid #6366f133", borderRadius: 14, padding: 24, marginBottom: 24 }}>
-        <h3 style={{ color: "#a78bfa", margin: "0 0 16px", fontSize: 15 }}>⚡ Request New Feature</h3>
+        <h3 style={{ color: "#a78bfa", margin: "0 0 16px", fontSize: 15 }}>AI  Request New Feature</h3>
         <textarea value={request} onChange={(e) => setRequest(e.target.value)}
           placeholder='Example: "Save all links shared in my Tech group to a separate list I can view in the dashboard"'
           rows={4}
@@ -411,4 +411,128 @@ function SettingsTab({ api }) {
           background: loading ? "#2a2a3a" : "linear-gradient(135deg, #6366f1, #8b5cf6)",
           border: "none", borderRadius: 8, color: "#fff", fontSize: 15,
           fontWeight: 700, cursor: loading ? "not-allowed" : "pointer"
-      
+        }}>
+          {loading ? "AI is writing your code..." : "Build & Deploy Feature"}
+        </button>
+        {result && (
+          <div style={{
+            marginTop: 16, padding: 16, borderRadius: 8,
+            background: result.success ? "#0a2a1a" : "#2a0a0a",
+            border: `1px solid ${result.success ? "#34d399" : "#f87171"}33`
+          }}>
+            <p style={{ color: result.success ? "#34d399" : "#f87171", fontSize: 14, margin: 0 }}>
+              {result.message}
+            </p>
+            {result.commit && (
+              <p style={{ color: "#555", fontSize: 12, margin: "8px 0 0", fontFamily: "'DM Mono', monospace" }}>
+                Commit: {result.commit}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      <h3 style={{ color: "#fff", fontSize: 16, margin: "0 0 16px" }}>Feature History</h3>
+      {history.map((f) => (
+        <div key={f.id} style={{
+          background: "#12121a", border: "1px solid #1e1e2e",
+          borderRadius: 10, padding: "14px 18px", marginBottom: 10
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <p style={{ color: "#ddd", fontSize: 14, margin: 0, flex: 1 }}>{f.request}</p>
+            <span style={{
+              padding: "3px 10px", borderRadius: 20, fontSize: 12, marginLeft: 12,
+              background: f.status === "deployed" ? "#0a2a1a" : "#2a2a0a",
+              color: f.status === "deployed" ? "#34d399" : "#f59e0b"
+            }}>{f.status}</span>
+          </div>
+          {f.github_commit && (
+            <p style={{ color: "#555", fontSize: 12, margin: "6px 0 0", fontFamily: "'DM Mono', monospace" }}>
+              {f.github_commit}
+            </p>
+          )}
+        </div>
+      ))}
+      {history.length === 0 && <p style={{ color: "#555" }}>No feature requests yet.</p>}
+    </div>
+  );
+}
+
+// -- MAIN APP ------------------------------------------------------------------
+export default function App() {
+  const [secret, setSecret] = useState(localStorage.getItem("agent_secret") || "");
+  const [tab, setTab] = useState("home");
+  const [stats, setStats] = useState(null);
+
+  const api = useApi(secret);
+
+  useEffect(() => {
+    if (secret) api.get("/stats").then(setStats);
+  }, [secret]);
+
+  if (!secret) return <LoginScreen onLogin={setSecret} />;
+
+  const tabs = [
+    { id: "home", label: "Home", icon: icons.home },
+    { id: "groups", label: "Groups", icon: icons.groups },
+    { id: "relay", label: "Relay", icon: icons.relay },
+    { id: "broadcast", label: "Broadcast", icon: icons.broadcast },
+    { id: "settings", label: "AI Updater", icon: icons.zap },
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#0a0a0f", fontFamily: "'Syne', sans-serif", color: "#fff" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+      {/* Header */}
+      <div style={{
+        background: "#12121a", borderBottom: "1px solid #1e1e2e",
+        padding: "16px 24px", display: "flex", alignItems: "center", gap: 12
+      }}>
+        <span style={{ fontSize: 28 }}>Robot </span>
+        <div>
+          <h1 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>Telegram AI Agent</h1>
+          <p style={{ margin: 0, fontSize: 12, color: "#555", fontFamily: "'DM Mono', monospace" }}>Brandash Media</p>
+        </div>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399" }} />
+          <span style={{ color: "#34d399", fontSize: 13 }}>Live</span>
+        </div>
+      </div>
+
+      {/* Nav */}
+      <div style={{
+        background: "#12121a", borderBottom: "1px solid #1e1e2e",
+        display: "flex", overflowX: "auto", padding: "0 16px"
+      }}>
+        {tabs.map((t) => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{
+            padding: "14px 18px", background: "none",
+            border: "none", cursor: "pointer", display: "flex",
+            alignItems: "center", gap: 8, whiteSpace: "nowrap",
+            color: tab === t.id ? "#a78bfa" : "#555",
+            borderBottom: `2px solid ${tab === t.id ? "#a78bfa" : "transparent"}`,
+            fontSize: 14, fontWeight: tab === t.id ? 700 : 400,
+            fontFamily: "'Syne', sans-serif", transition: "all 0.15s"
+          }}>
+            <Icon d={t.icon} size={16} />
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 20px" }}>
+        <AnimatePresence mode="wait">
+          <motion.div key={tab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+            {tab === "home" && <HomeTab stats={stats} />}
+            {tab === "groups" && <GroupsTab api={api} />}
+            {tab === "relay" && <RelayTab api={api} />}
+            {tab === "broadcast" && <BroadcastTab api={api} />}
+            {tab === "settings" && <SettingsTab api={api} />}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
