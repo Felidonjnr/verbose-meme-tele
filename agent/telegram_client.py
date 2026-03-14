@@ -20,7 +20,10 @@ class TelegramAgent:
         self.paused_features = set()
 
     async def start(self):
-        await self.client.start(phone=self.config.TELEGRAM_PHONE)
+        if self.config.TELEGRAM_SESSION_STRING:
+    await self.client.start()
+else:
+    await self.client.start(phone=self.config.TELEGRAM_PHONE)
         logger.info("✅ Connected to Telegram as your account")
 
         # Register event handlers
